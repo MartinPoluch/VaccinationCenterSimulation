@@ -123,6 +123,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Outputs\RoomOutput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Outputs\RoomReplicationOutput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Outputs\CurrentStateOutput.xaml.cs">
@@ -131,8 +139,15 @@
     <Compile Include="Outputs\GeneralOutput.xaml.cs">
       <DependentUpon>GeneralOutput.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Outputs\OutputStat.cs" />
     <Compile Include="Outputs\ReplicationOutput.xaml.cs">
       <DependentUpon>ReplicationOutput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Outputs\RoomOutput.xaml.cs">
+      <DependentUpon>RoomOutput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Outputs\RoomReplicationOutput.xaml.cs">
+      <DependentUpon>RoomReplicationOutput.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

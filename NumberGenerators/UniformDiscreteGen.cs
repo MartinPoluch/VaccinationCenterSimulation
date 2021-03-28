@@ -20,11 +20,9 @@ namespace SimulationCore.Generators {
 
 		public int Seed { get;}
 
-		/// <summary>
-		/// Generuje cisla od minimalnej hodnoty (vratane) po maximalnu hodnotu (VRATANE !!!)
-		/// </summary>
+		
 		public int NextInt() {
-			return random.Next(_minValue, _maxValue + 1);
+			return random.Next(_minValue, _maxValue);
 		}
 	}
 }

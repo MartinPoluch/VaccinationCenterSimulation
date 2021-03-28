@@ -9,7 +9,7 @@ namespace SimulationCore.Stats {
 	/// <summary>
 	/// Zber statistik ktore sa tykaju lubovolnej fronty.
 	/// </summary>
-	public class QueueStat : Ressetable {
+	public class QueueStat : Resettable {
 
 		private double _sumOfWaitingTime;
 		private double _sumOfQueueLength;

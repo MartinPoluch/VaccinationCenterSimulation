@@ -9,7 +9,7 @@ namespace SimulationCore.Stats {
 	/// <summary>
 	/// Zber statistik ktore sa tykaju lubovolnej obsluhy.
 	/// </summary>
-	public class ServiceStat {
+	public class ServiceStat : Resettable {
 
 		private double _durationOfOccupiedService;
 

@@ -50,9 +50,9 @@ namespace GUI {
 		public void RefreshGuiInClassicMode(object sender, ProgressChangedEventArgs e) {
 			VacCenterState currentState = (VacCenterState)e.UserState;
 			CurrentReplicationOut.Text = currentState.CurrentReplication.ToString();
-			ReplicationsOut.RefreshStats(currentState);
+			ReplicationsOut.Refresh(currentState);
 			if (!VacCenterSim.MaximumSpeed) {
-				CurrentStateOutput.RefreshOutput(currentState);
+				CurrentStateOutput.Refresh(currentState);
 				// uzivatelovi sa zobrazuje simulacny cas od ktoreho je odpocitana doba zahrievania
 				SimulationTimeOut.Text = SimInputs.StartDateTime().AddSeconds(currentState.Time).ToString("HH:mm:ss");
 			}

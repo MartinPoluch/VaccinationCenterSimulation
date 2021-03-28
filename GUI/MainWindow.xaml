@@ -32,11 +32,11 @@
             <TabItem Header="Current state">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
                     <local:CurrentStateOutput x:Name="CurrentStateOutput" Grid.Row="0" Grid.Column="0"></local:CurrentStateOutput>
@@ -45,11 +45,11 @@
             <TabItem Header="Replications">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
                     <local:ReplicationOutput x:Name="ReplicationsOut" Grid.Row="0" Grid.Column="0" Margin="10"></local:ReplicationOutput>

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GUI.Outputs;
 using VaccinationSim;
 
 namespace GUI {
@@ -20,15 +21,13 @@ namespace GUI {
 	/// <summary>
 	/// Interaction logic for CurrentStateOutput.xaml
 	/// </summary>
-	public partial class CurrentStateOutput : UserControl {
+	public partial class CurrentStateOutput : UserControl, OutputStat {
 		public CurrentStateOutput() {
 			InitializeComponent();
 		}
 
-		public void RefreshOutput(VacCenterState currentState) {
+		public void Refresh(VacCenterState state) {
 			
 		}
-
-
 	}
 }
