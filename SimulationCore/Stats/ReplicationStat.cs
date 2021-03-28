@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace SimulationCore.Stats {
 	public class ReplicationMeanStat : MeanStat {
 
-		private double _sumOfValues;
 		private double _squaredSumValues;
 
 		public ReplicationMeanStat() {

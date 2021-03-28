@@ -17,11 +17,14 @@ namespace SimulationCore.Stats {
 			_durationOfOccupiedService = 0;
 		}
 
+		public SimCore Simulation { get; set; }
+
 		public void AddServiceOccupancy(double duration) {
 			_durationOfOccupiedService += duration;
 		}
 
-		public double GetServiceOccupancy(double durationOfSimulation) {
+		public double GetServiceOccupancy() {
+			double durationOfSimulation = Simulation.CurrentTime;
 			if (durationOfSimulation == 0) {
 				return 0.0;
 			}

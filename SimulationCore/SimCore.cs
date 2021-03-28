@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using Priority_Queue;
-using SimulationCore.Events;
 
 namespace SimulationCore {
 	public abstract class SimCore {
@@ -70,12 +69,8 @@ namespace SimulationCore {
 		public abstract SimState GetCurrentState();
 
 		private void PlanInitializationEvents() {
-			if (WarmUpDuration > 0) {
-				// po zahriati sa najskor zresetuju statistiky a az potom sa vykona animacny event
-				PlanEvent(new EndOfWarmUp(this, WarmUpDuration));
-			}
 			if (!MaximumSpeed) {
-				PlanEvent(new AnimationEvent(this, StartTime + WarmUpDuration + AnimationFrequency)); // pocas zahrievania nechcem nikdy simulaciu spomalovat
+				PlanEvent(new AnimationEvent(this, StartTime)); // pocas zahrievania nechcem nikdy simulaciu spomalovat
 			}
 			
 		}
@@ -98,6 +93,7 @@ namespace SimulationCore {
 
 					SimEvent currentEvent = _calendar.Dequeue();
 					Debug.Assert(currentEvent.Time >= CurrentTime, "Time traveling!");
+					Debug.Assert(currentEvent.Time >= 0, "Time is negative!, maybe it was not initialized.");
 					CurrentTime = currentEvent.Time;
 					currentEvent.Execute();
 
@@ -137,7 +133,13 @@ namespace SimulationCore {
 
 		public void SimulateAsync(double endTime, int replications = 1) {
 			_worker.DoWork += delegate(object sender, DoWorkEventArgs args) {
-				Simulate(endTime, replications, true);
+				try {
+					Simulate(endTime, replications, true);
+				}
+				catch (Exception e) {
+					Console.WriteLine(e.Message);
+					Console.WriteLine(e.StackTrace);
+				}
 			};
 			_worker.RunWorkerAsync();
 		}

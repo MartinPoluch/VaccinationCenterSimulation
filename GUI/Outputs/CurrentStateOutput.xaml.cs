@@ -27,7 +27,7 @@ namespace GUI {
 		}
 
 		public void Refresh(VacCenterState state) {
-			
+			Registration.Refresh(state);
 		}
 	}
 }

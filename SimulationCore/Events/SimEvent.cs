@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 namespace SimulationCore {
 	public abstract class SimEvent {
 
+		public readonly double NullTime = -1;
+
 		protected SimEvent(SimCore simulation, double time) {
 			Simulation = simulation;
 			Time = time;
-			//Console.WriteLine($"Event created: {this.ToString()}");
 		}
+
 
 		protected SimCore Simulation { get; }
 

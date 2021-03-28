@@ -19,8 +19,6 @@ namespace SimulationCore {
 
 		public int CurrentReplication { get; set; }
 
-		public abstract void ResetCurrentStats();
-
 		public abstract void ResetBeforeReplication();
 
 		public abstract void ResetAll();

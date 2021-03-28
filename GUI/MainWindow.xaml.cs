@@ -32,15 +32,20 @@ namespace GUI {
 		}
 
 		private void InitializeVacCenter() {
-			VacCenterSim = new VacCenterSim() {
+			VacCenterSim = new VacCenterSim(
+				SimInputs.SourceIntensity, 
+				SimInputs.NumOfWorkers,
+				SimInputs.NumOfDoctors,
+				SimInputs.NumOfNurses
+				) 
+			{
 				MaximumSpeed = SimInputs.MaximumSpeed,
 				WarmUpDuration = 0, //TODO without warmup
-				ReportProgressReplicationFrequency = 0,
+				ReportProgressReplicationFrequency = 1,
 			};
 			VacCenterSim.RegisterRefreshDuringSimulation(RefreshGuiInClassicMode);
 			VacCenterSim.RegisterRefreshAfterSimulation(RefreshAfterSimulation);
 		}
-
 
 		public VacCenterSim VacCenterSim { get; set; }
 
@@ -53,7 +58,6 @@ namespace GUI {
 			ReplicationsOut.Refresh(currentState);
 			if (!VacCenterSim.MaximumSpeed) {
 				CurrentStateOutput.Refresh(currentState);
-				// uzivatelovi sa zobrazuje simulacny cas od ktoreho je odpocitana doba zahrievania
 				SimulationTimeOut.Text = SimInputs.StartDateTime().AddSeconds(currentState.Time).ToString("HH:mm:ss");
 			}
 		}

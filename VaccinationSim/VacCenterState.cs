@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SimulationCore;
+using VaccinationSim.Models;
 
 namespace VaccinationSim {
 	public class VacCenterState :  SimState {
-		public override void ResetCurrentStats() {
-			throw new NotImplementedException();
+
+		public Dictionary<RoomType, Room> Rooms { get; set; }
+
+		public override void ResetBeforeReplication() {
+			foreach (Room room in Rooms.Values) {
+				room.Reset();
+			}
 		}
 
-		public override void ResetBeforeReplication()
-		{
-			throw new NotImplementedException();
-		}
-
-		public override void ResetAll()
-		{
-			throw new NotImplementedException();
+		public override void ResetAll() {
+			ResetBeforeReplication();
 		}
 	}
 }

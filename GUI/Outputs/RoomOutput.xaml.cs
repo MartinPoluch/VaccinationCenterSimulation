@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using VaccinationSim;
+using VaccinationSim.Models;
 
 namespace GUI.Outputs {
 	/// <summary>
@@ -28,7 +29,10 @@ namespace GUI.Outputs {
 		public string RoomName { get; set; }
 
 		public void Refresh(VacCenterState state) {
-	
+			Room room = state.Rooms[RoomType.Registration];
+			AvgQueueLength.Text = room.QueueStat.AverageQueueLength().ToString();
+			AvgWaitTime.Text = room.QueueStat.AverageWaitingTime().ToString();
+			CurrentQueueLength.Text = room.Queue.Count.ToString();
 		}
 	}
 }

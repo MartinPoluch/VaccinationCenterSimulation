@@ -20,8 +20,6 @@ namespace GUI {
 	/// </summary>
 	public partial class SimInput : UserControl {
 
-		public const double WorkingDayDuration = 60 * 60 * 9;
-
 		public SimInput() {
 			InitializeComponent();
 			InitializeInputs();
@@ -56,10 +54,6 @@ namespace GUI {
 			return true; //TODO validate inputs
 		}
 
-		public double TimeBetweenArrivals() {
-			return WorkingDayDuration / SourceIntensity;
-		}
-
 		public void CheckIntegerInput(object sender, TextCompositionEventArgs e) {
 			Regex regex = new Regex("[^0-9]+");
 			e.Handled = regex.IsMatch(e.Text);
@@ -71,7 +65,7 @@ namespace GUI {
 		}
 
 		public DateTime StartDateTime() {
-			return new DateTime(2021, 2, 3, 17, 40, 0);
+			return new DateTime(2021, 2, 3, 8, 0, 0);
 		}
 	}
 }

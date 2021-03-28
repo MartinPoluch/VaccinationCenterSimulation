@@ -15,7 +15,8 @@ namespace SimulationCore.Stats {
 		private double _sumOfQueueLength;
 		private double _lastChange;
 
-		public QueueStat() {
+		public QueueStat(SimCore simulation) {
+			Simulation = simulation;
 		}
 
 		public void Reset() {

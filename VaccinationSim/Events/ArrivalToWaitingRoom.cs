@@ -4,11 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VaccinationSim.Models {
-	public enum RoomType {
-		Registration,
-		DoctorCheck,
-		Vaccination,
-		WaitingRoom,
+namespace VaccinationSim.Events {
+	public class ArrivalToWaitingRoom {
 	}
 }

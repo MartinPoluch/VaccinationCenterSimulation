@@ -59,13 +59,13 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" Margin="10">Workers:</TextBlock>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding InputBagCapacity}" PreviewTextInput="CheckIntegerInput" Margin="10"></TextBox>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding NumOfWorkers}" PreviewTextInput="CheckIntegerInput" Margin="10"></TextBox>
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Margin="10">Doctors:</TextBlock>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding OutputBagCapacity}" PreviewTextInput="CheckIntegerInput" Margin="10"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding NumOfDoctors}" PreviewTextInput="CheckIntegerInput" Margin="10"></TextBox>
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Margin="10">Nurses:</TextBlock>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding OutputBagCapacity}" PreviewTextInput="CheckIntegerInput" Margin="10"></TextBox>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding NumOfNurses}" PreviewTextInput="CheckIntegerInput" Margin="10"></TextBox>
             </Grid>
         </GroupBox>
 

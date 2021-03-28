@@ -43,6 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\Registration\ArrivalToRegistrationEvent.cs" />
+    <Compile Include="Events\ArrivalToWaitingRoom.cs" />
+    <Compile Include="Events\ExitOfPatient.cs" />
+    <Compile Include="Events\General\ArrivalEvent.cs" />
+    <Compile Include="Events\General\EndOfService.cs" />
+    <Compile Include="Events\General\PatientEvent.cs" />
+    <Compile Include="Events\General\StartOfServiceEvent.cs" />
+    <Compile Include="Events\Registration\EndOfRegistration.cs" />
+    <Compile Include="Events\Registration\StartOfRegistration.cs" />
     <Compile Include="Models\Patient.cs" />
     <Compile Include="Models\Room.cs" />
     <Compile Include="Models\RoomType.cs" />
@@ -65,8 +74,6 @@
       <Name>SimulationCore</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Events\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SimulationCore.Stats {
 	public class MeanStat : Resettable{
 
-		private double _sumOfValues;
+		protected double _sumOfValues;
 
 		public MeanStat() {
 		}

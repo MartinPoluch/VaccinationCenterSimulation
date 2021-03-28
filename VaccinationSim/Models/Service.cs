@@ -7,11 +7,14 @@ namespace VaccinationSim.Models {
 
 		private readonly Generator _generator;
 
-		public Service(Generator generator) {
+		public Service(int id, Generator generator) {
+			Id = id;
 			_generator = generator;
 			Stat = new ServiceStat();
 			Occupied = false;
 		}
+
+		public int Id { get; private set; }
 
 		public ServiceStat Stat { get; set; }
 
