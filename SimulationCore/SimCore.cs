@@ -26,6 +26,7 @@ namespace SimulationCore {
 			};
 			AnimationFrequency = 1;
 			AnimationDuration = 1000;
+			StopReplication = false;
 		}
 
 		public bool MaximumSpeed { get; set; }
@@ -75,6 +76,8 @@ namespace SimulationCore {
 			
 		}
 
+		protected bool StopReplication { get; set; }
+
 		private void Simulate(double endTime, int replications, bool reportProgress) {
 			_calendar.Clear();
 			CurrentTime = StartTime;
@@ -86,7 +89,7 @@ namespace SimulationCore {
 				CurrentTime = StartTime;
 				PlanInitializationEvents();
 				BeforeReplication();
-				while ((CurrentTime <= endTime) && (!Stop) && (_calendar.Count > 0)) {
+				while ((CurrentTime <= endTime) && (!Stop) && (_calendar.Count > 0) && (!StopReplication)) {
 					while (Pause) {
 						Thread.Sleep(300);
 					}

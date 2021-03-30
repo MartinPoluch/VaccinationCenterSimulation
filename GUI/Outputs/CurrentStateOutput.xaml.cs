@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GUI.Outputs;
 using VaccinationSim;
+using VaccinationSim.Models;
 
 namespace GUI {
 
@@ -22,12 +23,19 @@ namespace GUI {
 	/// Interaction logic for CurrentStateOutput.xaml
 	/// </summary>
 	public partial class CurrentStateOutput : UserControl, OutputStat {
+
 		public CurrentStateOutput() {
 			InitializeComponent();
+			Registration.RoomType = RoomType.Registration;
+			DoctorCheck.RoomType = RoomType.DoctorCheck;
+			Vaccination.RoomType = RoomType.Vaccination;
 		}
 
 		public void Refresh(VacCenterState state) {
 			Registration.Refresh(state);
+			DoctorCheck.Refresh(state);
+			Vaccination.Refresh(state);
+			GeneralOut.Refresh(state);
 		}
 	}
 }

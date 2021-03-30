@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using GUI.Inputs;
 using NumberGenerators;
 using VaccinationSim;
+using VaccinationSim.Models;
 
 namespace GUI {
 	/// <summary>
@@ -26,6 +27,7 @@ namespace GUI {
 	public partial class MainWindow : Window {
 
 		public MainWindow() {
+			//Seeder.SetInitialSeed(5);
 			InitializeComponent();
 			InitializeVacCenter();
 			DataContext = this;
@@ -43,7 +45,7 @@ namespace GUI {
 				WarmUpDuration = 0, //TODO without warmup
 				ReportProgressReplicationFrequency = 1,
 			};
-			VacCenterSim.RegisterRefreshDuringSimulation(RefreshGuiInClassicMode);
+			VacCenterSim.RegisterRefreshDuringSimulation(RefreshGui);
 			VacCenterSim.RegisterRefreshAfterSimulation(RefreshAfterSimulation);
 		}
 
@@ -52,12 +54,16 @@ namespace GUI {
 		/// <summary>
 		/// Metoda pre refreshovanie GUI v pripade pomaleho a rychleho rezimu. Pocas zahrievania sa GUI nerefreshuje.
 		/// </summary>
-		public void RefreshGuiInClassicMode(object sender, ProgressChangedEventArgs e) {
+		public void RefreshGui(object sender, ProgressChangedEventArgs e) {
 			VacCenterState currentState = (VacCenterState)e.UserState;
+			//TODO pridaj podmienku pre refreshovanie replikacnych statistik teraz sa refreshuju stale
 			CurrentReplicationOut.Text = currentState.CurrentReplication.ToString();
 			ReplicationsOut.Refresh(currentState);
-			if (!VacCenterSim.MaximumSpeed) {
+
+			if (!VacCenterSim.MaximumSpeed) { // refresh statistik pri pomalom rezime
 				CurrentStateOutput.Refresh(currentState);
+				ConsoleOut.Text = currentState.Rooms[RoomType.Registration].Services[0].State + " " 
+					+ currentState.Rooms[RoomType.Registration].Services[0].IsOccupied();
 				SimulationTimeOut.Text = SimInputs.StartDateTime().AddSeconds(currentState.Time).ToString("HH:mm:ss");
 			}
 		}

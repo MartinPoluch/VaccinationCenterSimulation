@@ -13,11 +13,15 @@ namespace SimulationCore.Stats {
 
 		private double _durationOfOccupiedService;
 
+		public ServiceStat(SimCore simulation) {
+			Simulation = simulation;
+		}
+
 		public void Reset() {
 			_durationOfOccupiedService = 0;
 		}
 
-		public SimCore Simulation { get; set; }
+		public SimCore Simulation { get; private set; }
 
 		public void AddServiceOccupancy(double duration) {
 			_durationOfOccupiedService += duration;
@@ -29,6 +33,10 @@ namespace SimulationCore.Stats {
 				return 0.0;
 			}
 			return (_durationOfOccupiedService / durationOfSimulation) * 100;
+		}
+
+		public override string ToString() {
+			return GetServiceOccupancy().ToString();
 		}
 	}
 }

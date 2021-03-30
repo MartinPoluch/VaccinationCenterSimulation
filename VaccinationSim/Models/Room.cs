@@ -15,20 +15,20 @@ namespace VaccinationSim.Models {
 
 		private Dictionary<int, UniformDiscreteGen> _serviceDecision;
 
-		public Room(int numberOfServices, Generator generator, RoomType type, QueueStat queueStat) {
+		public Room(int numberOfServices, Generator generator, RoomType type, SimCore simulation) {
 			Seeder seeder = Seeder.GetInstance();
 			_serviceDecision = new Dictionary<int, UniformDiscreteGen>();
 			for (int i = 2; i <= numberOfServices; i++) {
-				_serviceDecision[i] = new UniformDiscreteGen(seeder.GetSeed(), 0, numberOfServices - 1);
+				_serviceDecision[i] = new UniformDiscreteGen(seeder.GetSeed(), 0, i);
 			}
 
 			Services = new Service[numberOfServices];
 			for (int i = 0; i < numberOfServices; i++) {
-				Services[i] = new Service(i, generator.Clone());
+				Services[i] = new Service(i, generator.Clone(), simulation);
 			}
 
 			Queue = new Queue<Patient>();
-			QueueStat = queueStat;
+			QueueStat = new QueueStat(simulation);
 			Type = type;
 		}
 
@@ -50,7 +50,7 @@ namespace VaccinationSim.Models {
 
 		public bool IsAnyServiceFree() {
 			foreach (Service service in Services) {
-				if (! service.Occupied) {
+				if (! service.IsOccupied()) {
 					return true;
 				}
 			}
@@ -71,7 +71,7 @@ namespace VaccinationSim.Models {
 		private List<Service> GetFreeServices() {
 			List<Service> freeServices = new List<Service>();
 			foreach (Service service in Services) {
-				if (!service.Occupied) {
+				if (!service.IsOccupied()) {
 					freeServices.Add(service);
 				}
 			}
@@ -91,5 +91,13 @@ namespace VaccinationSim.Models {
 			return freeServices[decision];
 		}
 
+		public double AverageServiceOccupancy() {
+			double sumOfOccupancy = 0;
+			foreach (Service service in Services) {
+				sumOfOccupancy += service.Stat.GetServiceOccupancy();
+			}
+
+			return sumOfOccupancy / Services.Length;
+		}
 	}
 }

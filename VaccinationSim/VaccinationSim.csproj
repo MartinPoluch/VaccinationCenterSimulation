@@ -43,7 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Events\Registration\ArrivalToRegistrationEvent.cs" />
+    <Compile Include="Events\DoctorCheck\ArrivalToDoctorCheck.cs" />
+    <Compile Include="Events\DoctorCheck\EndOfDoctorCheck.cs" />
+    <Compile Include="Events\DoctorCheck\StartOfDoctorCheck.cs" />
+    <Compile Include="Events\Registration\ArrivalToRegistration.cs" />
     <Compile Include="Events\ArrivalToWaitingRoom.cs" />
     <Compile Include="Events\ExitOfPatient.cs" />
     <Compile Include="Events\General\ArrivalEvent.cs" />
@@ -52,12 +55,18 @@
     <Compile Include="Events\General\StartOfServiceEvent.cs" />
     <Compile Include="Events\Registration\EndOfRegistration.cs" />
     <Compile Include="Events\Registration\StartOfRegistration.cs" />
+    <Compile Include="Events\Vaccination\ArrivalToVaccination.cs" />
+    <Compile Include="Events\Vaccination\EndOfVaccination.cs" />
+    <Compile Include="Events\Vaccination\StartOfVaccination.cs" />
     <Compile Include="Models\Patient.cs" />
     <Compile Include="Models\Room.cs" />
     <Compile Include="Models\RoomType.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stats\RoomStat.cs" />
+    <Compile Include="Stats\VacSystemStat.cs" />
+    <Compile Include="Stats\WaitRoomStat.cs" />
     <Compile Include="VacCenterState.cs" />
     <Compile Include="VaccinationCenterSim.cs" />
   </ItemGroup>

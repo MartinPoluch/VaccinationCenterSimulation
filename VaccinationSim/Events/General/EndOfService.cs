@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,15 +21,15 @@ namespace VaccinationSim.Events.general {
 			base.Execute();
 			VacCenterSim simulation = GetSimulation();
 			Service service = Patient.Service;
-			service.Occupied = false;
+			Patient.Service = null;
+			service.Release();
 			service.Stat.AddServiceOccupancy(Patient.ServiceDuration[GetRoomType()]);
 			simulation.PlanEvent(EventAfterService()); // presun do dalsej miestnosti
-
 			Room room = simulation.Rooms[GetRoomType()];
 			if (room.Queue.Count > 0) { // urcite je volna minimalne jedna obsluha, pretoze som ju prave uvolnil
-				PatientEvent nextEvent = StartOfService();
+				StartOfServiceEvent nextEvent = StartOfService();
 				nextEvent.Patient = room.RemovePatientFromQueue();
-				simulation.PlanEvent(StartOfService());
+				simulation.PlanEvent(nextEvent);
 			}
 		}
 	}

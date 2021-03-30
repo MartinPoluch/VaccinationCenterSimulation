@@ -9,14 +9,18 @@ namespace SimulationCore.Stats {
 	/// <summary>
 	/// Statistiky o celom systeme ktory je predmetom danej simulacie.
 	/// </summary>
-	public class SystemMeanStat : MeanStat {
+	public class SystemStat : MeanStat {
 
 		public override void Reset() {
 			base.Reset();
 			ArrivedCustomers = 0;
+			CustomersInSystem = 0;
 		}
 
 		public int ArrivedCustomers { get; set; }
+
+		public int CustomersInSystem { get; set; }
+
 
 	}
 }

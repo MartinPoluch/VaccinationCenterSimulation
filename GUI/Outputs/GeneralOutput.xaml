@@ -33,7 +33,7 @@
                 <TextBlock Grid.Row="0" Grid.Column="0" Margin="5">Patients arrived:</TextBlock>
                 <TextBlock Name="PatientsArrived" Grid.Row="0" Grid.Column="1" Margin="5">0</TextBlock>
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Margin="5">Patients left:</TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="0" Margin="5">Patients in system:</TextBlock>
                 <TextBlock Name="PatientsInSystem" Grid.Row="1" Grid.Column="1" Margin="5">0</TextBlock>
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Margin="5">Patients left:</TextBlock>

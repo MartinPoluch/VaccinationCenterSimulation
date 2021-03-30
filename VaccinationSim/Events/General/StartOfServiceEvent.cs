@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace VaccinationSim.Events.general {
 		}
 
 		public abstract EndOfServiceEvent EndOfService();
-
+		 
 		public override void Execute() {
 			base.Execute();
 			VacCenterSim simulation = GetSimulation();
@@ -21,15 +22,15 @@ namespace VaccinationSim.Events.general {
 			Room room = simulation.Rooms[GetRoomType()];
 			// vyberie jednu z volnych obsluh, musi byt volna minimalne jedna obsluha inak by sa tento event nenaplanoval
 			Service freeService = room.GetFreeService(); 
-
+			Debug.Assert(!freeService.IsOccupied(), "Patient took occupied service");
 			Patient.Service = freeService;
-			freeService.Occupied = true;
+			freeService.Occupy();
 			double waitingTime = simulation.CurrentTime - Patient.StartOfWaiting[GetRoomType()];
+			Debug.Assert(Patient.StartOfWaiting[GetRoomType()] > Patient.NotInitialized, "Start of waiting was not initialized.");
 			room.QueueStat.AddWaitingTime(waitingTime);
 
-			SimEvent endOfService = EndOfService();
+			EndOfServiceEvent endOfService = EndOfService();
 			double durationOfService = freeService.GenerateDuration();
-
 			// potrebujem si ulozit aby som vedel po skonceni obsluhy updatnut vytazenost obsluhy
 			Patient.ServiceDuration[GetRoomType()] = durationOfService; 
 			endOfService.Time = simulation.CurrentTime + durationOfService;

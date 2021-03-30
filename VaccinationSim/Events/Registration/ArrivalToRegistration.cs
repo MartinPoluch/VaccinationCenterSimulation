@@ -8,8 +8,8 @@ using VaccinationSim.Events.general;
 using VaccinationSim.Models;
 
 namespace VaccinationSim.Events {
-	public class ArrivalToRegistrationEvent : ArrivalEvent {
-		public ArrivalToRegistrationEvent(SimCore simulation, double time, Patient patient) : base(simulation, time, patient)
+	public class ArrivalToRegistration : ArrivalEvent {
+		public ArrivalToRegistration(SimCore simulation, double time, Patient patient) : base(simulation, time, patient)
 		{
 		}
 
@@ -23,13 +23,16 @@ namespace VaccinationSim.Events {
 
 		public override void Execute() {
 			base.Execute();
-			PlanNextArrival();
-		}
-		private void PlanNextArrival() {
 			VacCenterSim simulation = GetSimulation();
-			Time = simulation.GetNextArrivalTime();
-			Patient = new Patient();
-			simulation.PlanEvent(this);
+			simulation.PatientArrived();
+			PlanNextArrival(simulation);
+		}
+		private void PlanNextArrival(VacCenterSim simulation) {
+			Patient = simulation.GetNextPatient();
+			if (Patient != null) { // ak vrati null tak v dany den uz nepridu ziadny pacienti
+				Time = Patient.ArrivalTime; // pacient si pamata kedy prisiel
+				simulation.PlanEvent(this);
+			}
 		}
 	}
 }

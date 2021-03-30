@@ -33,7 +33,7 @@ namespace GUI {
 			NumOfDoctors = 6;
 			NumOfNurses = 3;
 			MaximumSpeed = false;
-			SimulationDuration = 1000000; // simulacia s chladenim, extremne velky cas konca
+			SimulationDuration = 60*60*24*30; // simulacia s chladenim, extremne velky cas konca
 		}
 
 		public int Replications { get; set; }

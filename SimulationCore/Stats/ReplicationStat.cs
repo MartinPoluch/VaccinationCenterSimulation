@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SimulationCore.Stats {
-	public class ReplicationMeanStat : MeanStat {
+	public class ReplicationStat : MeanStat {
 
 		private double _squaredSumValues;
 
-		public ReplicationMeanStat() {
+		public ReplicationStat() {
 		}
 
 

@@ -19,7 +19,7 @@ namespace SimulationCore.Stats {
 			Simulation = simulation;
 		}
 
-		public void Reset() {
+		public virtual void Reset() {
 			_sumOfWaitingTime = 0;
 			NumberOfCustomers = 0;
 			_sumOfQueueLength = 0;

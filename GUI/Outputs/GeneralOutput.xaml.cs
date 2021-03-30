@@ -1,6 +1,9 @@
-﻿using System.Windows.Controls;
+﻿using System.Globalization;
+using System.Windows.Controls;
 using GUI.Outputs;
+using SimulationCore.Stats;
 using VaccinationSim;
+using VaccinationSim.Stats;
 
 namespace GUI {
 	/// <summary>
@@ -12,7 +15,11 @@ namespace GUI {
 		}
 
 		public void Refresh(VacCenterState state) {
-			throw new System.NotImplementedException();
+			VacSystemStat systemStat = state.SystemStat;
+			PatientsArrived.Text = systemStat.ArrivedCustomers.ToString();
+			PatientsLeft.Text = systemStat.NumberOfValues.ToString(CultureInfo.InvariantCulture);
+			PatientsInSystem.Text = systemStat.CustomersInSystem.ToString();
+			PatientsMissing.Text = systemStat.MissingPatients.ToString();
 		}
 	}
 }

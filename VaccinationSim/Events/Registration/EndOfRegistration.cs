@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SimulationCore;
+using VaccinationSim.Events.DoctorCheck;
 using VaccinationSim.Events.general;
 using VaccinationSim.Models;
 
@@ -18,11 +19,12 @@ namespace VaccinationSim.Events.Registration {
 		}
 
 		protected override PatientEvent EventAfterService() {
-			return new ExitOfPatient(Simulation, Simulation.CurrentTime, Patient);
+			return new ArrivalToDoctorCheck(Simulation, Time, Patient);
 		}
 
 		protected override StartOfServiceEvent StartOfService() {
-			return new StartOfRegistration(Simulation, Simulation.CurrentTime, Patient);
+			return new StartOfRegistration(Simulation, Time, Patient);
 		}
+
 	}
 }

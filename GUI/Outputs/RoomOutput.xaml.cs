@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,11 +29,15 @@ namespace GUI.Outputs {
 
 		public string RoomName { get; set; }
 
+		public RoomType RoomType { get; set; }
+
 		public void Refresh(VacCenterState state) {
-			Room room = state.Rooms[RoomType.Registration];
-			AvgQueueLength.Text = room.QueueStat.AverageQueueLength().ToString();
-			AvgWaitTime.Text = room.QueueStat.AverageWaitingTime().ToString();
+			Room room = state.Rooms[RoomType]; // TODO change
+			AvgQueueLength.Text = room.QueueStat.AverageQueueLength().ToString(CultureInfo.InvariantCulture);
+			AvgWaitTime.Text = room.QueueStat.AverageWaitingTime().ToString(CultureInfo.InvariantCulture);
 			CurrentQueueLength.Text = room.Queue.Count.ToString();
+			Services.ItemsSource = null;
+			Services.ItemsSource = room.Services;
 		}
 	}
 }
