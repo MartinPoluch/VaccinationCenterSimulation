@@ -41,6 +41,9 @@
                 <TextBlock Grid.Row="1" Grid.Column="0" Margin="5">Source intensity (per day):</TextBlock>
                 <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SourceIntensity}" PreviewTextInput="CheckIntegerInput" Margin="5"></TextBox>
 
+                <TextBlock Grid.Row="2" Grid.Column="0" Margin="10">Replication refresh frequency::</TextBlock>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ReplicationRefreshFreq}" PreviewTextInput="CheckIntegerInput" Margin="10"></TextBox>
+
                 <CheckBox Name="MaximumSpeedCheckBox" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" IsChecked="{Binding MaximumSpeed}" Margin="5">Maximum speed (without animations)</CheckBox>
             </Grid>
         </GroupBox>

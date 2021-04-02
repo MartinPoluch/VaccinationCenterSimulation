@@ -22,15 +22,15 @@ namespace VaccinationSim.Stats {
 			WaitingPatients = 0;
 		}
 
-		public int WaitingPatients { get; set; }
+		public int WaitingPatients { get; private set; }
 
 		public void AddWaitingPatient() {
-			//TODO update stats
+			AddQueueLength(WaitingPatients);
 			WaitingPatients++;
 		}
 
 		public void RemoveWaitingPatient() {
-			//TODO update stats
+			AddQueueLength(WaitingPatients);
 			WaitingPatients--;
 		}
 

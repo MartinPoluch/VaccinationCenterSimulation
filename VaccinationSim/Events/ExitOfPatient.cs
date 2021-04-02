@@ -20,8 +20,9 @@ namespace VaccinationSim.Events {
 		public override void Execute() {
 			base.Execute();
 			VacCenterSim simulation = GetSimulation();
+			simulation.RemovePatientFromWaitRoom();
 			simulation.PatientLeft(Patient);
-			simulation.TryStopSimulation(Patient);
+			simulation.TryStopSimulation();
 		}
 	}
 }

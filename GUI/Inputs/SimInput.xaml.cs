@@ -15,8 +15,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace GUI {
+
 	/// <summary>
-	/// Povinne vstupy pre simulacny beh.
+	/// Mandatory inputs for simulation run.
 	/// </summary>
 	public partial class SimInput : UserControl {
 
@@ -33,7 +34,8 @@ namespace GUI {
 			NumOfDoctors = 6;
 			NumOfNurses = 3;
 			MaximumSpeed = false;
-			SimulationDuration = 60*60*24*30; // simulacia s chladenim, extremne velky cas konca
+			SimulationDuration = int.MaxValue; // endless time, simulation with cooling
+			ReplicationRefreshFreq = 1;
 		}
 
 		public int Replications { get; set; }
@@ -49,6 +51,8 @@ namespace GUI {
 		public bool MaximumSpeed { get; set; }
 
 		public double SimulationDuration { get; set; }
+
+		public int ReplicationRefreshFreq { get; set; }
 
 		public bool ValidInputs() {
 			return true; //TODO validate inputs
@@ -66,6 +70,16 @@ namespace GUI {
 
 		public DateTime StartDateTime() {
 			return new DateTime(2021, 2, 3, 8, 0, 0);
+		}
+
+		public int GetMinMissingPatients() {
+			double ratio = 5 / (double)540;
+			return (int) Math.Round(ratio * SourceIntensity);
+		}
+
+		public int GetMaxMissingPatients() {
+			double ratio = 25 / (double)540;
+			return (int)Math.Round(ratio * SourceIntensity);
 		}
 	}
 }

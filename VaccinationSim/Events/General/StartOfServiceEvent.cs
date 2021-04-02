@@ -32,7 +32,7 @@ namespace VaccinationSim.Events.general {
 			EndOfServiceEvent endOfService = EndOfService();
 			double durationOfService = freeService.GenerateDuration();
 			// potrebujem si ulozit aby som vedel po skonceni obsluhy updatnut vytazenost obsluhy
-			Patient.ServiceDuration[GetRoomType()] = durationOfService; 
+			Patient.ServiceDuration[GetRoomType()] = durationOfService;
 			endOfService.Time = simulation.CurrentTime + durationOfService;
 			simulation.PlanEvent(endOfService);
 		}

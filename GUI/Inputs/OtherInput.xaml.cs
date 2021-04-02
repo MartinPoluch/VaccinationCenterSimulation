@@ -15,16 +15,17 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace GUI.Inputs {
+
 	/// <summary>
-	/// Interaction logic for OtherInput.xaml
+	/// Optional inputs for simulation run. Specific modes selection.
 	/// </summary>
-	
-	//TODO remove this class
 	public partial class OtherInput : UserControl {
 
 		public OtherInput() {
 			InitializeComponent();
 			InitializeInputs();
+			MinDoctors = 1;
+			MaxDoctors = 9;
 			DataContext = this;
 		}
 
@@ -35,18 +36,26 @@ namespace GUI.Inputs {
 			if (ClassicMode.IsChecked ?? false) {
 				return Mode.Classic;
 			}
+			if (DependencyChart.IsChecked ?? false) {
+				return Mode.DependencyChart;
+			}
 			else {
-				return Mode.Classic;
+				return Mode.Classic; // default
 			}
 		}
 
+		public int MinDoctors { get; set; }
+
+		public int MaxDoctors { get; set; }
+
 		public void EnableAllInputs() {
 			Modes.IsEnabled = true;
-			
+			DependencyChart.IsEnabled = true;
 		}
 
 		public void DisableAllInputs() {
 			Modes.IsEnabled = false;
+			DependencyChart.IsEnabled = false;
 		}
 
 		public void CheckIntegerInput(object sender, TextCompositionEventArgs e) {

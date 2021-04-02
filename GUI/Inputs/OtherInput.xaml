@@ -18,10 +18,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-
-        
-
-        <GroupBox x:Name="Modes" Grid.Row="3" Grid.Column="0" Header="Modes" Margin="5">
+        <GroupBox x:Name="Modes" Grid.Row="0" Grid.Column="0" Header="Modes" Margin="5">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
@@ -35,6 +32,29 @@
                 </Grid.ColumnDefinitions>
 
                 <RadioButton x:Name="ClassicMode" Grid.Row="0" GroupName="Mode" Content="Classic" IsChecked="True"/>
+                <RadioButton x:Name="DependencyChart" Grid.Row="1" GroupName="Mode" Content="Dependency chart"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox x:Name="DependencyChartInputs" Grid.Row="2" Grid.Column="0" Header="Dependency chart settings" Margin="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Margin="10">Min doctors:</TextBlock>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding MinDoctors}" PreviewTextInput="CheckIntegerInput" Margin="10"></TextBox>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Margin="10">Max doctors:</TextBlock>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding MaxDoctors}" PreviewTextInput="CheckIntegerInput" Margin="10"></TextBox>
             </Grid>
         </GroupBox>
 

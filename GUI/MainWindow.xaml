@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:GUI"
         xmlns:chartControl="clr-namespace:GUI.ChartControl"
         xmlns:inputs="clr-namespace:GUI.Inputs"
+        xmlns:outputs="clr-namespace:GUI.Outputs"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1500">
     <Grid>
@@ -23,7 +24,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBox Name="ConsoleOut" Grid.Row="5" Grid.Column="0" Height="60"  TextWrapping="Wrap" AcceptsReturn="True"  IsReadOnly="True" Margin="10"></TextBox>
+        <TextBox Name="ConsoleOut" Grid.Row="5" Grid.Column="0" Height="100"  TextWrapping="Wrap" AcceptsReturn="True"  IsReadOnly="True" Margin="10"></TextBox>
 
         <ToggleButton Name="StartAndStopBtn"  Grid.Row="0" Grid.Column="1"  Content ="Start"  Margin = "10" Width ="150"  HorizontalAlignment = "Center"  Checked = "StartClick" Unchecked = "StopClick" />
         <ToggleButton Name="PauseAndContinueBtn"  Grid.Row="1" Grid.Column="1"  Content ="Pause"  Margin = "10" Width ="150"  HorizontalAlignment = "Center"  Checked = "PauseClick" Unchecked = "ContinueClick" />
@@ -53,6 +54,19 @@
                     </Grid.ColumnDefinitions>
 
                     <local:ReplicationOutput x:Name="ReplicationsOut" Grid.Row="0" Grid.Column="0" Margin="10"></local:ReplicationOutput>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Doctors dependency">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <outputs:DependencyChart Grid.Row="0" Grid.Column="0" x:Name="DependencyChart"></outputs:DependencyChart>
                 </Grid>
             </TabItem>
         </TabControl>

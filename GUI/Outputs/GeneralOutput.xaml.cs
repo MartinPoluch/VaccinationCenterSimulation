@@ -20,6 +20,10 @@ namespace GUI {
 			PatientsLeft.Text = systemStat.NumberOfValues.ToString(CultureInfo.InvariantCulture);
 			PatientsInSystem.Text = systemStat.CustomersInSystem.ToString();
 			PatientsMissing.Text = systemStat.MissingPatients.ToString();
+
+			WaitRoomStat waitRoom = state.WaitRoomStat;
+			PatientsInWaitRoom.Text = waitRoom.WaitingPatients.ToString();
+			AvgPatientsInWaitRoom.Text = waitRoom.GetAverageWaitingPatients().ToString(CultureInfo.InvariantCulture);
 		}
 	}
 }

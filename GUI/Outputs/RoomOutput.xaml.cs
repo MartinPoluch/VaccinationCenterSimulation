@@ -32,10 +32,11 @@ namespace GUI.Outputs {
 		public RoomType RoomType { get; set; }
 
 		public void Refresh(VacCenterState state) {
-			Room room = state.Rooms[RoomType]; // TODO change
+			Room room = state.Rooms[RoomType];
 			AvgQueueLength.Text = room.QueueStat.AverageQueueLength().ToString(CultureInfo.InvariantCulture);
 			AvgWaitTime.Text = room.QueueStat.AverageWaitingTime().ToString(CultureInfo.InvariantCulture);
 			CurrentQueueLength.Text = room.Queue.Count.ToString();
+			AvgServiceOccupancy.Text = room.AverageServiceOccupancy().ToString(CultureInfo.InvariantCulture);
 			Services.ItemsSource = null;
 			Services.ItemsSource = room.Services;
 		}

@@ -22,11 +22,17 @@ namespace VaccinationSim.Events {
 		}
 
 		public override void Execute() {
-			base.Execute();
 			VacCenterSim simulation = GetSimulation();
-			simulation.PatientArrived();
+			if (Patient.IsMissing) {
+				simulation.PatientIsMissing();
+			}
+			else {
+				base.Execute();
+				simulation.PatientArrived();
+			}
 			PlanNextArrival(simulation);
 		}
+
 		private void PlanNextArrival(VacCenterSim simulation) {
 			Patient = simulation.GetNextPatient();
 			if (Patient != null) { // ak vrati null tak v dany den uz nepridu ziadny pacienti

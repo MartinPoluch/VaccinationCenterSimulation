@@ -118,6 +118,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Outputs\DependencyChart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Outputs\GeneralOutput.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -138,6 +142,9 @@
   <ItemGroup>
     <Compile Include="Outputs\CurrentStateOutput.xaml.cs">
       <DependentUpon>CurrentStateOutput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Outputs\DependencyChart.xaml.cs">
+      <DependentUpon>DependencyChart.xaml</DependentUpon>
     </Compile>
     <Compile Include="Outputs\GeneralOutput.xaml.cs">
       <DependentUpon>GeneralOutput.xaml</DependentUpon>

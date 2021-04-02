@@ -33,6 +33,12 @@ namespace GUI {
 			Registration.Refresh(state);
 			DoctorCheck.Refresh(state);
 			Vaccination.Refresh(state);
+
+			var waitRoom = state.WaitRoomReplicationStat;
+			AvgPeopleInWaitRoom.Text = waitRoom.Average().ToString(CultureInfo.InvariantCulture);
+			CiPeopleInWaitRoom.Text = waitRoom.ConfidenceInterval().ToString();
+
+			AvgMissingPatients.Text = state.MissingPatientsReplication.Average().ToString(CultureInfo.InvariantCulture);
 		}
 	}
 }

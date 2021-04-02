@@ -29,21 +29,24 @@ namespace GUI {
 		public MainWindow() {
 			//Seeder.SetInitialSeed(5);
 			InitializeComponent();
-			InitializeVacCenter();
+			InitVacCenter();
+			Title = "Vaccination center";
 			DataContext = this;
 		}
 
-		private void InitializeVacCenter() {
+		private void InitVacCenter() {
 			VacCenterSim = new VacCenterSim(
-				SimInputs.SourceIntensity, 
+				SimInputs.SourceIntensity,
+				SimInputs.GetMinMissingPatients(), 
+				SimInputs.GetMaxMissingPatients(),
 				SimInputs.NumOfWorkers,
 				SimInputs.NumOfDoctors,
 				SimInputs.NumOfNurses
 				) 
 			{
 				MaximumSpeed = SimInputs.MaximumSpeed,
-				WarmUpDuration = 0, //TODO without warmup
-				ReportProgressReplicationFrequency = 1,
+				WarmUpDuration = 0,
+				ReportProgressReplicationFrequency = SimInputs.ReplicationRefreshFreq,
 			};
 			VacCenterSim.RegisterRefreshDuringSimulation(RefreshGui);
 			VacCenterSim.RegisterRefreshAfterSimulation(RefreshAfterSimulation);
@@ -51,12 +54,13 @@ namespace GUI {
 
 		public VacCenterSim VacCenterSim { get; set; }
 
+		public SimulationWrapper SimulationWrapper { get; set; }
+
 		/// <summary>
 		/// Metoda pre refreshovanie GUI v pripade pomaleho a rychleho rezimu. Pocas zahrievania sa GUI nerefreshuje.
 		/// </summary>
 		public void RefreshGui(object sender, ProgressChangedEventArgs e) {
 			VacCenterState currentState = (VacCenterState)e.UserState;
-			//TODO pridaj podmienku pre refreshovanie replikacnych statistik teraz sa refreshuju stale
 			CurrentReplicationOut.Text = currentState.CurrentReplication.ToString();
 			ReplicationsOut.Refresh(currentState);
 
@@ -77,23 +81,16 @@ namespace GUI {
 			ActivateReadyState();
 		}
 
-		public void CheckIntegerInput(object sender, TextCompositionEventArgs e) {
-			Regex regex = new Regex("[^0-9]+");
-			e.Handled = regex.IsMatch(e.Text);
-		}
-
-		public void CheckDoubleInput(object sender, TextCompositionEventArgs e) {
-			Regex regex = new Regex("[^0-9.-]+");
-			e.Handled = regex.IsMatch(e.Text);
-		}
-
 		private void StartClick(object sender, RoutedEventArgs e) {
 			if (SimInputs.ValidInputs()) {
 				ResetAllOutputs();
 				ActivateRunningState();
 				if (OtherInputs.SelectedMode() == Mode.Classic) {
-					InitializeVacCenter();
+					InitVacCenter();
 					VacCenterSim.SimulateAsync(SimInputs.SimulationDuration, SimInputs.Replications);
+				}
+				if (OtherInputs.SelectedMode() == Mode.DependencyChart) {
+					CreateDependencyChart();
 				}
 			}
 			else {
@@ -101,6 +98,42 @@ namespace GUI {
 			}
 		}
 
+		private void CreateDependencyChart() {
+			DependencyChart.Clear(); // clear previous chart values
+			ConsoleOut.Text = "Calculating points for dependency chart ...";
+			SimulationWrapper = new SimulationWrapper();
+			BackgroundWorker worker = new BackgroundWorker() {
+				WorkerReportsProgress = true,
+				WorkerSupportsCancellation = true
+			};
+			worker.DoWork += delegate (object sender, DoWorkEventArgs args) {
+				SimulationWrapper.Simulate(
+					worker, 
+					SimInputs.Replications, 
+					SimInputs.SourceIntensity, 
+					SimInputs.NumOfWorkers, 
+					OtherInputs.MinDoctors, 
+					OtherInputs.MaxDoctors, 
+					SimInputs.NumOfNurses, 
+					SimInputs.GetMinMissingPatients(), 
+					SimInputs.GetMaxMissingPatients());
+			};
+			worker.ProgressChanged += RefreshDependencyChart;
+			worker.RunWorkerCompleted += delegate(object sender, RunWorkerCompletedEventArgs args) {
+				RefreshAfterSimulation(sender, args);
+				ConsoleOut.Text += "Dependency chart was successfully created.";
+			};
+			worker.RunWorkerAsync();
+			
+		}
+
+		private void RefreshDependencyChart(object sender, ProgressChangedEventArgs e) {
+			VacCenterState currentState = (VacCenterState)e.UserState;
+			DependencyChart.Refresh(currentState);
+			var doctorRoom = currentState.ReplicationStats[RoomType.DoctorCheck];
+			ConsoleOut.Text += $"\nAdded point => " +
+			                   $"doctors:{currentState.NumOfDoctors} queue length: {doctorRoom.QueueLength.Average()}";
+		}
 
 		private void ActivateReadyState() {
 			ConsoleOut.Text = "Simulation is ready to start";
@@ -115,6 +148,7 @@ namespace GUI {
 
 		private void ActivateRunningState() {
 			ConsoleOut.Text = "Simulation is running...";
+			ConsoleOut.Text += $"Missing patients: <{SimInputs.GetMinMissingPatients()},{SimInputs.GetMaxMissingPatients()})";
 			StartAndStopBtn.Content = "Stop";
 			StartAndStopBtn.IsEnabled = true;
 			PauseAndContinueBtn.Content = "Pause";
@@ -141,17 +175,32 @@ namespace GUI {
 		}
 
 		private void StopClick(object sender, RoutedEventArgs e) {
-			VacCenterSim.Stop = true;
+			if (OtherInputs.SelectedMode() == Mode.Classic) {
+				VacCenterSim.Stop = true;
+			}
+			else {
+				SimulationWrapper.Stop();
+			}
 			ActivateReadyState();
 		}
 
 		private void PauseClick(object sender, RoutedEventArgs e) {
-			VacCenterSim.Pause = true;
+			if (OtherInputs.SelectedMode() == Mode.Classic) {
+				VacCenterSim.Pause = true;
+			}
+			else {
+				SimulationWrapper.Pause();
+			}
 			ActivatePausedState();
 		}
 
 		private void ContinueClick(object sender, RoutedEventArgs e) {
-			VacCenterSim.Pause = false;
+			if (OtherInputs.SelectedMode() == Mode.Classic) {
+				VacCenterSim.Pause = false;
+			}
+			else {
+				SimulationWrapper.Continue();
+			}
 			ActivateRunningState();
 		}
 	}

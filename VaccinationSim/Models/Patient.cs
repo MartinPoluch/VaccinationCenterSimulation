@@ -10,8 +10,8 @@ namespace VaccinationSim.Models {
 		private static int _lastId = 0; // counter pre generovanie id pacienta
 		public readonly double NotInitialized = -1;
 
-		public Patient(double arrivalTime) {
-			ArrivalTime = arrivalTime;
+		public Patient(bool isMissing) {
+			IsMissing = isMissing;
 			Id = _lastId;
 			_lastId++;
 			StartOfWaiting =
@@ -33,9 +33,11 @@ namespace VaccinationSim.Models {
 			_lastId = 0;
 		}
 
+		public bool IsMissing { get; }
+
 		public int Id { get; }
 
-		public double ArrivalTime { get;}
+		public double ArrivalTime { get; set; }
 
 		public RoomType RoomType { get; set; }
 

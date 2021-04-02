@@ -20,6 +20,8 @@ namespace SimulationCore.Generators {
 
 		public int Seed { get;}
 
+
+
 		
 		public int NextInt() {
 			return random.Next(_minValue, _maxValue);

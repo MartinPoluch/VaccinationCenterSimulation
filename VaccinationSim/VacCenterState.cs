@@ -17,15 +17,23 @@ namespace VaccinationSim {
 				[RoomType.Vaccination] = new RoomStat()
 			};
 			SystemStat = new VacSystemStat();
+			WaitRoomReplicationStat = new ReplicationStat();
+			MissingPatientsReplication = new ReplicationStat();
 		}
 
 		public Dictionary<RoomType, Room> Rooms { get; set; }
 
 		public Dictionary<RoomType, RoomStat> ReplicationStats { get; set; }
 
+		public ReplicationStat WaitRoomReplicationStat { get; set; }
+
 		public VacSystemStat SystemStat { get; set; }
 
 		public WaitRoomStat WaitRoomStat { get; set; }
+
+		public ReplicationStat MissingPatientsReplication { get; set; }
+
+		public int NumOfDoctors { get; set; } // only for dependency chart usage
 
 		public override void ResetBeforeReplication() {
 			foreach (Room room in Rooms.Values) {
@@ -40,6 +48,8 @@ namespace VaccinationSim {
 			foreach (RoomStat roomStat in ReplicationStats.Values) {
 				roomStat.Reset();
 			}
+			WaitRoomReplicationStat.Reset();
+			MissingPatientsReplication.Reset();
 		}
 	}
 }

@@ -19,8 +19,9 @@ namespace VaccinationSim.Events {
 		public override void Execute() {
 			base.Execute();
 			VacCenterSim simulation = GetSimulation();
-			
-			simulation.PlanEvent(new ExitOfPatient(simulation, Time, Patient));
+			simulation.AddPatientToWaitRoom();
+			double delayInWaitRoom = simulation.GenerateDelayInWaitRoom();
+			simulation.PlanEvent(new ExitOfPatient(simulation, simulation.CurrentTime + delayInWaitRoom, Patient));
 		}
 	}
 }

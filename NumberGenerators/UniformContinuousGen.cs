@@ -20,7 +20,7 @@ namespace NumberGenerators {
 		}
 
 		public override Generator Clone() {
-			return new UniformContinuousGen(GenerateRandomSeed());
+			return new UniformContinuousGen(GenerateRandomSeed(), _min, _max);
 		}
 
 		/// <summary>

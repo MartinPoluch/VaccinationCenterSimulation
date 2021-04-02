@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 namespace GUI.Inputs {
 	public enum Mode {
 		Classic,
-		WarmUp,
-		CapacityTimeDependency,
-		OptimalCapacity
+		DependencyChart,
 	}
 }
