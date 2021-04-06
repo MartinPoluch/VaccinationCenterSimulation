@@ -37,17 +37,28 @@ namespace GUI {
 		private void InitVacCenter() {
 			VacCenterSim = new VacCenterSim(
 				SimInputs.SourceIntensity,
-				SimInputs.GetMinMissingPatients(), 
+				SimInputs.GetMinMissingPatients(),
 				SimInputs.GetMaxMissingPatients(),
 				SimInputs.NumOfWorkers,
 				SimInputs.NumOfDoctors,
 				SimInputs.NumOfNurses
-				) 
-			{
+				) {
 				MaximumSpeed = SimInputs.MaximumSpeed,
 				WarmUpDuration = 0,
 				ReportProgressReplicationFrequency = SimInputs.ReplicationRefreshFreq,
 			};
+			//VacCenterSim = new VacCenterSim(
+			//	SimInputs.SourceIntensity,
+			//	5,
+			//	25,
+			//	SimInputs.NumOfWorkers,
+			//	SimInputs.NumOfDoctors,
+			//	SimInputs.NumOfNurses
+			//) {
+			//	MaximumSpeed = SimInputs.MaximumSpeed,
+			//	WarmUpDuration = 0,
+			//	ReportProgressReplicationFrequency = SimInputs.ReplicationRefreshFreq,
+			//};
 			VacCenterSim.RegisterRefreshDuringSimulation(RefreshGui);
 			VacCenterSim.RegisterRefreshAfterSimulation(RefreshAfterSimulation);
 		}
@@ -63,18 +74,31 @@ namespace GUI {
 			VacCenterState currentState = (VacCenterState)e.UserState;
 			CurrentReplicationOut.Text = currentState.CurrentReplication.ToString();
 			ReplicationsOut.Refresh(currentState);
-
+			if (currentState.CurrentReplication == SimInputs.Replications) {
+				RefreshConsole(currentState);
+			}
 			if (!VacCenterSim.MaximumSpeed) { // refresh statistik pri pomalom rezime
 				CurrentStateOutput.Refresh(currentState);
-				ConsoleOut.Text = currentState.Rooms[RoomType.Registration].Services[0].State + " " 
-					+ currentState.Rooms[RoomType.Registration].Services[0].IsOccupied();
 				SimulationTimeOut.Text = SimInputs.StartDateTime().AddSeconds(currentState.Time).ToString("HH:mm:ss");
 			}
 		}
 
+		private void RefreshConsole(VacCenterState currentState) {
+			var rooms = currentState.ReplicationStats;
+			var doctorRoom = rooms[RoomType.DoctorCheck];
+			ConsoleOut.Text = "";
+			ConsoleOut.Text += $"\nworkers occupancy: {rooms[RoomType.Registration].ServiceOccupancy.Average()}";
+			ConsoleOut.Text += $"\ndoctors occupancy: {doctorRoom.ServiceOccupancy.Average()}";
+			ConsoleOut.Text += $"\nnurses occupancy: {rooms[RoomType.Vaccination].ServiceOccupancy.Average()}";
+			ConsoleOut.Text += $"\n______________________________________________________";
+			ConsoleOut.Text += $"\ndoctor queue length: {doctorRoom.QueueLength.Average()}";
+			ConsoleOut.Text += $"\ndoctor wait time: {doctorRoom.WaitingTime.Average()}";
+		}
+
 		private void RefreshAfterSimulation(object sender, RunWorkerCompletedEventArgs e) {
 			var error = e.Error;
-			if (e.Error != null) {
+			if (error != null) {
+				Console.WriteLine($"Error occured: {error}");
 				MessageBox.Show(error.StackTrace, error.Message, MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 			StartAndStopBtn.IsChecked = false;
@@ -136,7 +160,7 @@ namespace GUI {
 		}
 
 		private void ActivateReadyState() {
-			ConsoleOut.Text = "Simulation is ready to start";
+			ConsoleOut.Text += "\nSimulation is ready to start";
 			StartAndStopBtn.Content = "Start";
 			StartAndStopBtn.IsEnabled = true;
 			PauseAndContinueBtn.Content = "Pause";
@@ -148,7 +172,7 @@ namespace GUI {
 
 		private void ActivateRunningState() {
 			ConsoleOut.Text = "Simulation is running...";
-			ConsoleOut.Text += $"Missing patients: <{SimInputs.GetMinMissingPatients()},{SimInputs.GetMaxMissingPatients()})";
+			ConsoleOut.Text += $"\nMissing patients: <{SimInputs.GetMinMissingPatients()},{SimInputs.GetMaxMissingPatients()})";
 			StartAndStopBtn.Content = "Stop";
 			StartAndStopBtn.IsEnabled = true;
 			PauseAndContinueBtn.Content = "Pause";
@@ -172,6 +196,7 @@ namespace GUI {
 
 		private void ResetAllOutputs() {
 			//TODO reset outputs here
+			ConsoleOut.Text = "";
 		}
 
 		private void StopClick(object sender, RoutedEventArgs e) {

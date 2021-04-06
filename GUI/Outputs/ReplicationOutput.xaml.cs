@@ -38,7 +38,11 @@ namespace GUI {
 			AvgPeopleInWaitRoom.Text = waitRoom.Average().ToString(CultureInfo.InvariantCulture);
 			CiPeopleInWaitRoom.Text = waitRoom.ConfidenceInterval().ToString();
 
-			AvgMissingPatients.Text = state.MissingPatientsReplication.Average().ToString(CultureInfo.InvariantCulture);
+			AvgMissingPatients.Text = state.MissingPatientsReplicationStat.Average().ToString(CultureInfo.InvariantCulture);
+			AvgLeftPatients.Text = state.LeftPatientReplicationStat.Average().ToString(CultureInfo.InvariantCulture);
+			AvgCoolingDuration.Text = (state.DurationOfCoolingReplicationStat.Average() / 3600).ToString(CultureInfo.InvariantCulture);
+
+
 		}
 	}
 }

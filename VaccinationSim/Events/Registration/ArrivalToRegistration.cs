@@ -39,6 +39,9 @@ namespace VaccinationSim.Events {
 				Time = Patient.ArrivalTime; // pacient si pamata kedy prisiel
 				simulation.PlanEvent(this);
 			}
+			else {
+				simulation.UpdateStatsBeforeCooling();
+			}
 		}
 	}
 }

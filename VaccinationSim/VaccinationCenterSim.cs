@@ -153,12 +153,21 @@ namespace VaccinationSim {
 			bool isMissing = (decision < _propOfMissing);
 			Patient patient = new Patient(isMissing);
 			double arrivalTime = (patient.Id == 0) ? CurrentTime : (CurrentTime + _timeBetweenArrivals); // first patient will come at 8:00
+			//arrivalTime = (CurrentTime + _timeBetweenArrivals);
 			patient.ArrivalTime = arrivalTime;
 			if (patient.Id < _numOfPatientsPerDay) {
 				return patient;
 			}
 
 			return null; // no more patients for that day, all patients came
+		}
+
+		public void UpdateStatsBeforeCooling() {
+			foreach (var keyValue in Rooms) {
+				RoomType roomType = keyValue.Key;
+				Room room = keyValue.Value;
+				State.QueueLengthAtEndOfDayRs[roomType].AddValue(room.Queue.Count);
+			} 
 		}
 
 		protected override void BeforeSimulation() {
@@ -182,7 +191,11 @@ namespace VaccinationSim {
 				roomStat.UpdateStats(room);
 			}
 			State.WaitRoomReplicationStat.AddValue(State.WaitRoomStat.GetAverageWaitingPatients());
-			State.MissingPatientsReplication.AddValue(State.SystemStat.MissingPatients);
+			State.MissingPatientsReplicationStat.AddValue(State.SystemStat.MissingPatients);
+			State.LeftPatientReplicationStat.AddValue(State.SystemStat.NumberOfValues);
+			double coolingDuration = CurrentTime - DurationOfWorkDay;
+			State.DurationOfCoolingReplicationStat.AddValue(coolingDuration);
+
 		}
 
 		protected override void AfterSimulation() {

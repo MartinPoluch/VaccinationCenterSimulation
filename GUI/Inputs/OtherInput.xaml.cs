@@ -50,12 +50,12 @@ namespace GUI.Inputs {
 
 		public void EnableAllInputs() {
 			Modes.IsEnabled = true;
-			DependencyChart.IsEnabled = true;
+			DependencyChartInputs.IsEnabled = true;
 		}
 
 		public void DisableAllInputs() {
 			Modes.IsEnabled = false;
-			DependencyChart.IsEnabled = false;
+			DependencyChartInputs.IsEnabled = false;
 		}
 
 		public void CheckIntegerInput(object sender, TextCompositionEventArgs e) {

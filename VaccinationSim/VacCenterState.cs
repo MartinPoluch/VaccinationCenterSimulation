@@ -18,7 +18,14 @@ namespace VaccinationSim {
 			};
 			SystemStat = new VacSystemStat();
 			WaitRoomReplicationStat = new ReplicationStat();
-			MissingPatientsReplication = new ReplicationStat();
+			MissingPatientsReplicationStat = new ReplicationStat();
+			LeftPatientReplicationStat = new ReplicationStat();
+			DurationOfCoolingReplicationStat = new ReplicationStat();
+			QueueLengthAtEndOfDayRs = new Dictionary<RoomType, ReplicationStat>() {
+				[RoomType.Registration] = new ReplicationStat(),
+				[RoomType.DoctorCheck] = new ReplicationStat(),
+				[RoomType.Vaccination] = new ReplicationStat(),
+			};
 		}
 
 		public Dictionary<RoomType, Room> Rooms { get; set; }
@@ -31,7 +38,13 @@ namespace VaccinationSim {
 
 		public WaitRoomStat WaitRoomStat { get; set; }
 
-		public ReplicationStat MissingPatientsReplication { get; set; }
+		public ReplicationStat MissingPatientsReplicationStat { get; set; }
+
+		public ReplicationStat LeftPatientReplicationStat { get; set; }
+
+		public ReplicationStat DurationOfCoolingReplicationStat { get; set; }
+
+		public Dictionary<RoomType, ReplicationStat> QueueLengthAtEndOfDayRs { get; set; }
 
 		public int NumOfDoctors { get; set; } // only for dependency chart usage
 
@@ -49,7 +62,12 @@ namespace VaccinationSim {
 				roomStat.Reset();
 			}
 			WaitRoomReplicationStat.Reset();
-			MissingPatientsReplication.Reset();
+			MissingPatientsReplicationStat.Reset();
+			LeftPatientReplicationStat.Reset();
+			DurationOfCoolingReplicationStat.Reset();
+			foreach (ReplicationStat replicationStat in QueueLengthAtEndOfDayRs.Values) {
+				replicationStat.Reset();
+			}
 		}
 	}
 }

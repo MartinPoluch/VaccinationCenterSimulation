@@ -68,6 +68,7 @@
     <Compile Include="Stats\RoomStat.cs" />
     <Compile Include="Stats\VacSystemStat.cs" />
     <Compile Include="Stats\WaitRoomStat.cs" />
+    <Compile Include="VacCenterAnalyzer.cs" />
     <Compile Include="VacCenterState.cs" />
     <Compile Include="VaccinationCenterSim.cs" />
   </ItemGroup>

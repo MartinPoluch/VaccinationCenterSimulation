@@ -9,6 +9,7 @@ namespace VaccinationSim.Stats {
 	public class VacSystemStat : SystemStat {
 
 		public int MissingPatients { get; set; }
+
 		public override void Reset() {
 			base.Reset();
 			MissingPatients = 0;
