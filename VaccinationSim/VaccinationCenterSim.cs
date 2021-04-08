@@ -122,8 +122,8 @@ namespace VaccinationSim {
 		public void TryStopSimulation() {
 			// if number patients who left is same as expected number of all patients
 			if ((CurrentTime > DurationOfWorkDay) && (State.SystemStat.CustomersInSystem == 0)) {
-				//Debug.Assert(State.SystemStat.NumberOfValues == (_numOfPatientsPerDay - State.SystemStat.MissingPatients), 
-				//	"Number of served patients is not equal to all patients - missing.");
+				Debug.Assert(State.SystemStat.NumberOfValues == (_numOfPatientsPerDay - State.SystemStat.MissingPatients),
+					"Number of served patients is not equal to all patients - missing.");
 				StopReplication = true;
 			}
 		}
