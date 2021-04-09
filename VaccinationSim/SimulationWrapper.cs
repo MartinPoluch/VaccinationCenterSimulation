@@ -40,8 +40,11 @@ namespace VaccinationSim {
 			int minNumOfDoctors, int maxNumOfDoctors, int numOfNurses, 
 			int minMissingPatients, int maxMissingPatients) {
 			_stop = false;
-			for (int doctors = minNumOfDoctors; (doctors < maxNumOfDoctors) && !_stop; doctors++) {
-				VacCenterSim simulation = new VacCenterSim(
+			for (int doctors = minNumOfDoctors; (doctors < maxNumOfDoctors); doctors++) {
+				if (_stop) {
+					return;
+				}
+				simulation = new VacCenterSim(
 					numOfPatients, 
 					minMissingPatients, maxMissingPatients, 
 					numOfWorkers, doctors, numOfNurses);
