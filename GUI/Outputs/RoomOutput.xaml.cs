@@ -37,6 +37,10 @@ namespace GUI.Outputs {
 			AvgWaitTime.Text = room.QueueStat.AverageWaitingTime().ToString(CultureInfo.InvariantCulture);
 			CurrentQueueLength.Text = room.Queue.Count.ToString();
 			AvgServiceOccupancy.Text = room.AverageServiceOccupancy().ToString(CultureInfo.InvariantCulture);
+			//List<ServiceObject> serviceObjects = new List<ServiceObject>();
+			//foreach (Service service in room.Services) {
+			//	serviceObjects.Add(new ServiceObject(service.Id, service.Stat.GetServiceOccupancy(), service.State));
+			//}
 			Services.ItemsSource = null;
 			Services.ItemsSource = room.Services;
 		}

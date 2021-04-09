@@ -159,6 +159,7 @@
     <Compile Include="Outputs\RoomReplicationOutput.xaml.cs">
       <DependentUpon>RoomReplicationOutput.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Outputs\ServiceObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
